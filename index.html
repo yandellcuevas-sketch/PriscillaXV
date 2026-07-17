@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Un detalle romántico especial de XV años para Priscilla" />
+  <meta name="theme-color" content="#0a0f2e" />
+  <title>XV Años – Priscilla 💙</title>
+
+  <!-- ============================================================
+       TIPOGRAFÍAS
+       ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- 📝 CAMBIAR fuentes aquí si se desea otra tipografía -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Great+Vibes&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       VARIABLES Y RESET
+       ============================================================ */
+    :root {
+      --royal-blue:    #1a3a8f;
+      --midnight:      #060d28;
+      --sky-blue:      #4f9fff;
+      --deep-blue:     #0d1f5c;
+      --glass-blue:    rgba(30, 60, 140, 0.25);
+      --pearl:         #f0f4ff;
+      --silver:        #c8d8f0;
+      --gold-soft:     #a8c4e8;
+      --glow-blue:     #3a7bd5;
+      --heart-red:     #e83a6f;
+      --heart-blue:    #4f9fff;
+      --kiss-pink:     #ff7ab0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+      background: var(--midnight);
+      font-family: 'Outfit', sans-serif;
+      color: var(--pearl);
+    }
+
+    /* Reducción de movimiento para accesibilidad */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ============================================================
+       CANVAS DE PARTÍCULAS (fondo global)
+       ============================================================ */
+    #particleCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       ESCENA 1 – PORTADA
+       ============================================================ */
+    #sceneCover {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(26, 58, 143, 0.55) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(79, 159, 255, 0.35) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(6, 13, 40, 0.9) 0%, #060d28 100%);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    #sceneCover.fade-out {
+      opacity: 0;
+      transform: scale(1.04);
+      pointer-events: none;
+    }
+
+    .cover-deco {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      animation: floatY 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 12px rgba(79,159,255,0.7));
+    }
+
+    .cover-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.4s forwards;
+    }
+
+    /* 📝 CAMBIAR el nombre aquí: "Priscilla" */
+    .cover-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3rem, 12vw, 5.5rem);
+      background: linear-gradient(135deg, #ffffff 0%, #a8d0ff 40%, #4f9fff 70%, #c8d8f0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+      line-height: 1.1;
+      filter: drop-shadow(0 0 18px rgba(79,159,255,0.5));
+      opacity: 0;
+      animation: fadeUp 1s 0.7s forwards;
+    }
+
+    .cover-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 4vw, 1.35rem);
+      color: var(--silver);
+      text-align: center;
+      margin-top: 1rem;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 1s 1s forwards;
+    }
+
+    /* Estrellas decorativas de la portada */
+    .cover-stars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .cover-star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle var(--dur, 2s) var(--delay, 0s) infinite alternate;
+    }
+
+    /* Botón de descubrir */
+    #btnDiscover {
+      position: relative;
+      padding: 1rem 2.4rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: #fff;
+      background: linear-gradient(135deg, #1a3a8f 0%, #2a5bc8 50%, #4f9fff 100%);
+      box-shadow:
+        0 0 20px rgba(79,159,255,0.5),
+        0 0 60px rgba(26,58,143,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 1s 1.3s forwards;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #btnDiscover::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 40%;
+      height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+      transform: skewX(-20deg);
+      animation: shimmerBtn 2.5s 2s infinite;
+    }
+    #btnDiscover:hover, #btnDiscover:active {
+      transform: scale(1.05);
+      box-shadow:
+        0 0 30px rgba(79,159,255,0.7),
+        0 0 80px rgba(26,58,143,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+
+    /* ============================================================
+       ESCENA 2 – VIDEO
+       ============================================================ */
+    #sceneVideo {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background:
+        radial-gradient(ellipse at 30% 10%, rgba(26,58,143,0.4) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 90%, rgba(79,159,255,0.25) 0%, transparent 50%),
+        #060d28;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease;
+    }
+    #sceneVideo.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .video-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.8rem, 7vw, 3rem);
+      background: linear-gradient(135deg, #c8d8f0, #4f9fff, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.8s forwards;
+      filter: drop-shadow(0 0 10px rgba(79,159,255,0.4));
+    }
+
+    /* Marco del video */
+    .video-frame {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 18px;
+      animation: frameEntrance 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      transform: scale(0.85) translateY(30px);
+      opacity: 0;
+    }
+
+    /* Capa exterior del marco con gradiente azul-plateado */
+    .video-frame-outer {
+      position: relative;
+      padding: 3px;
+      border-radius: 20px;
+      background: linear-gradient(135deg,
+        #c8d8f0 0%, #1a3a8f 20%, #4f9fff 40%,
+        #ffffff 50%, #4f9fff 60%, #1a3a8f 80%, #c8d8f0 100%);
+      background-size: 200% 200%;
+      animation: gradientBorder 4s ease infinite;
+      box-shadow:
+        0 0 30px rgba(79,159,255,0.6),
+        0 0 70px rgba(26,58,143,0.35),
+        0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .video-frame-inner {
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+
+    /* Cristal sobre el marco */
+    .video-frame-glass {
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      background: linear-gradient(135deg,
+        rgba(255,255,255,0.12) 0%,
+        rgba(255,255,255,0.04) 40%,
+        rgba(255,255,255,0) 60%,
+        rgba(255,255,255,0.06) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* 📝 El video se carga desde ./video.mp4 (ruta relativa para GitHub Pages) */
+    #videoXV {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 65vh;
+      object-fit: contain;
+      border-radius: 17px;
+    }
+
+    /* Esquinas decorativas del marco */
+    .frame-corner {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      z-index: 3;
+    }
+    .frame-corner::before, .frame-corner::after {
+      content: '';
+      position: absolute;
+      background: linear-gradient(45deg, #ffffff, #4f9fff);
+      border-radius: 2px;
+    }
+    .frame-corner::before { width: 100%; height: 3px; }
+    .frame-corner::after  { width: 3px; height: 100%; }
+    .frame-corner.tl { top: 4px; left: 4px; }
+    .frame-corner.tr { top: 4px; right: 4px; transform: scaleX(-1); }
+    .frame-corner.bl { bottom: 4px; left: 4px; transform: scaleY(-1); }
+    .frame-corner.br { bottom: 4px; right: 4px; transform: scale(-1); }
+
+    /* Corona XV encima del marco */
+    .crown-wrap {
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      font-size: 1.6rem;
+      filter: drop-shadow(0 0 8px rgba(200,216,240,0.8));
+      animation: floatY 2.5s ease-in-out infinite;
+    }
+
+    /* Estrellas dentro del marco */
+    .frame-star {
+      position: absolute;
+      z-index: 3;
+      font-size: 0.7rem;
+      color: #c8d8f0;
+      animation: twinkle 1.5s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    /* Brillos animados alrededor del marco */
+    .frame-glow {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(79,159,255,0.5) 0%, transparent 70%);
+      pointer-events: none;
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    /* ============================================================
+       TRANSICIÓN ROMÁNTICA
+       ============================================================ */
+    #sceneTransition {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse at center, rgba(26,58,143,0.9) 0%, #060d28 100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+    }
+    #sceneTransition.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .transition-text {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2rem, 8vw, 4rem);
+      color: #fff;
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.7);
+      animation: popIn 0.7s 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards;
+      filter: drop-shadow(0 0 20px rgba(79,159,255,0.8));
+    }
+
+    /* ============================================================
+       ESCENA 3 – CARTA
+       ============================================================ */
+    #sceneLetter {
+      position: fixed;
+      inset: 0;
+      z-index: 15;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background:
+        radial-gradient(ellipse at 25% 15%, rgba(26,58,143,0.5) 0%, transparent 50%),
+        radial-gradient(ellipse at 75% 85%, rgba(79,159,255,0.3) 0%, transparent 50%),
+        #060d28;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+    #sceneLetter.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Tarjeta de la carta */
+    .letter-card {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      padding: 2.5rem 2rem;
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg,
+          rgba(255,255,255,0.08) 0%,
+          rgba(30,60,140,0.18) 40%,
+          rgba(79,159,255,0.08) 100%);
+      border: 1px solid rgba(200,216,240,0.25);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      box-shadow:
+        0 0 40px rgba(79,159,255,0.25),
+        0 0 80px rgba(26,58,143,0.2),
+        inset 0 1px 0 rgba(255,255,255,0.18),
+        inset 0 -1px 0 rgba(79,159,255,0.1),
+        0 30px 80px rgba(0,0,0,0.5);
+      transform: translateY(40px);
+      opacity: 0;
+      animation: none;
+    }
+    .letter-card.appear {
+      animation: cardAppear 1s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+
+    /* Reflejo de cristal sobre la tarjeta */
+    .letter-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 50%;
+      border-radius: 24px 24px 0 0;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.1) 0%,
+        rgba(255,255,255,0) 100%);
+      pointer-events: none;
+    }
+
+    /* Borde brillante de la tarjeta */
+    .letter-card::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 25px;
+      background: linear-gradient(135deg, #c8d8f0, #1a3a8f, #4f9fff, #c8d8f0);
+      background-size: 300% 300%;
+      animation: gradientBorder 5s ease infinite;
+      z-index: -1;
+      opacity: 0.5;
+    }
+
+    .letter-icon {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
+      animation: floatY 2.5s ease-in-out infinite;
+      filter: drop-shadow(0 0 8px rgba(79,159,255,0.6));
+    }
+
+    /* Texto de la carta con efecto máquina de escribir */
+    #letterText {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 4.5vw, 1.4rem);
+      font-style: italic;
+      color: var(--pearl);
+      text-align: center;
+      line-height: 1.75;
+      min-height: 3em;
+      position: relative;
+    }
+    #letterText .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--sky-blue);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: cursorBlink 0.7s step-end infinite;
+    }
+
+    /* "Te amo" */
+    #teAmo {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.8rem, 12vw, 5rem);
+      background: linear-gradient(135deg, #ff7ab0 0%, #e83a6f 30%, #4f9fff 70%, #c8d8f0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+      margin-top: 1.2rem;
+      opacity: 0;
+      filter: drop-shadow(0 0 20px rgba(232,58,111,0.5));
+    }
+    #teAmo.bounce-in {
+      animation: elegantBounce 1.2s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+
+    /* Divisor decorativo */
+    .letter-divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #4f9fff, transparent);
+      margin: 1rem auto;
+    }
+
+    /* Footer de la carta */
+    .letter-footer {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.75rem;
+      color: var(--silver);
+      text-align: center;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 1rem;
+      opacity: 0;
+    }
+    .letter-footer.appear {
+      animation: fadeUp 0.8s 0.5s forwards;
+    }
+
+    /* ============================================================
+       ANIMACIONES KEYFRAMES
+       ============================================================ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes floatY {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-8px); }
+    }
+    @keyframes twinkle {
+      from { opacity: 0.2; transform: scale(0.8); }
+      to   { opacity: 1;   transform: scale(1.3); }
+    }
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+    @keyframes shimmerBtn {
+      0%   { left: -60%; }
+      100% { left: 130%; }
+    }
+    @keyframes gradientBorder {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes frameEntrance {
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    @keyframes cardAppear {
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50%       { opacity: 0.7; transform: scale(1.2); }
+    }
+    @keyframes elegantBounce {
+      0%   { opacity: 0; transform: scale(0.5) translateY(20px); }
+      60%  { opacity: 1; transform: scale(1.08) translateY(-5px); }
+      80%  { transform: scale(0.97) translateY(2px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes popIn {
+      to { opacity: 1; transform: scale(1); }
+    }
+    /* Partícula corazón flotante */
+    @keyframes heartFloat {
+      0%   { opacity: 0;   transform: translateY(0) scale(0.5) rotate(var(--rot, 0deg)); }
+      20%  { opacity: 1;   transform: translateY(-15px) scale(1) rotate(var(--rot, 0deg)); }
+      100% { opacity: 0;   transform: translateY(var(--travel, -160px)) scale(var(--sf, 0.8)) rotate(var(--rot2, 20deg)); }
+    }
+    @keyframes heartPulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.35); }
+    }
+    @keyframes sparkFloat {
+      0%   { opacity: 0;   transform: translate(0, 0) scale(0); }
+      30%  { opacity: 1;   transform: translate(var(--sx, 20px), var(--sy, -20px)) scale(1); }
+      100% { opacity: 0;   transform: translate(var(--ex, 40px), var(--ey, -60px)) scale(0.3); }
+    }
+    @keyframes transHeartRain {
+      0%   { opacity: 0;   transform: translateY(-20px) scale(0.4) rotate(var(--rot, 0deg)); }
+      15%  { opacity: 1; }
+      85%  { opacity: 1; }
+      100% { opacity: 0;   transform: translateY(110vh) scale(1.1) rotate(var(--rot2, 30deg)); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       CANVAS DE PARTÍCULAS (fondo de estrellas)
+       ============================================================ -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- ============================================================
+       ESCENA 1 – PORTADA
+       ============================================================ -->
+  <section id="sceneCover" role="main" aria-label="Portada de XV años">
+    <!-- Estrellas de fondo de la portada -->
+    <div class="cover-stars" id="coverStars" aria-hidden="true"></div>
+
+    <div class="cover-deco" aria-hidden="true">👑</div>
+    <!-- 📝 CAMBIAR el texto de subtítulo aquí -->
+    <p class="cover-subtitle">Un recuerdo especial</p>
+    <!-- 📝 CAMBIAR el nombre aquí -->
+    <h1 class="cover-name">Priscilla</h1>
+    <!-- 📝 CAMBIAR el tagline aquí -->
+    <p class="cover-tagline">"Un recuerdo especial para tus XV años"</p>
+
+    <button id="btnDiscover" aria-label="Descubrir mi sorpresa y activar sonido">
+      ✨ Descubrir mi sorpresa
+    </button>
+  </section>
+
+  <!-- ============================================================
+       ESCENA 2 – VIDEO
+       ============================================================ -->
+  <section id="sceneVideo" aria-label="Video especial de XV años" aria-hidden="true">
+    <!-- 📝 CAMBIAR el título del video aquí -->
+    <h2 class="video-title">Para ti, Priscilla 💙</h2>
+
+    <div class="video-frame" id="videoFrame">
+      <div class="video-frame-outer">
+        <!-- Corona sobre el marco -->
+        <div class="crown-wrap" aria-hidden="true">👑✨</div>
+        <!-- Esquinas decorativas -->
+        <div class="frame-corner tl" aria-hidden="true"></div>
+        <div class="frame-corner tr" aria-hidden="true"></div>
+        <div class="frame-corner bl" aria-hidden="true"></div>
+        <div class="frame-corner br" aria-hidden="true"></div>
+        <!-- Estrellas en el marco -->
+        <span class="frame-star" style="top:8%; left:5%">✦</span>
+        <span class="frame-star" style="top:8%; right:5%; animation-delay:0.4s">✦</span>
+        <span class="frame-star" style="bottom:8%; left:5%; animation-delay:0.8s">✦</span>
+        <span class="frame-star" style="bottom:8%; right:5%; animation-delay:1.2s">✦</span>
+        <!-- Brillos alrededor del marco -->
+        <div class="frame-glow" style="width:80px;height:80px;top:-20px;left:-20px;animation-delay:0s"></div>
+        <div class="frame-glow" style="width:60px;height:60px;bottom:-15px;right:-15px;animation-delay:1.5s"></div>
+
+        <div class="video-frame-inner">
+          <div class="video-frame-glass"></div>
+          <!--
+            📝 El video DEBE llamarse "video.mp4" y estar en la raíz del repositorio.
+               No uses rutas locales de Windows aquí.
+          -->
+          <video id="videoXV" controls playsinline preload="metadata"
+                 aria-label="Video especial de XV años">
+            <source src="./video.mp4" type="video/mp4" />
+            Tu navegador no puede reproducir este video.
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TRANSICIÓN ROMÁNTICA (entre video y carta)
+       ============================================================ -->
+  <div id="sceneTransition" aria-hidden="true" role="presentation">
+    <p class="transition-text">Con todo mi amor… 💙</p>
+  </div>
+
+  <!-- ============================================================
+       ESCENA 3 – CARTA
+       ============================================================ -->
+  <section id="sceneLetter" aria-label="Carta romántica" aria-hidden="true">
+    <div class="letter-card" id="letterCard">
+      <div class="letter-icon" aria-hidden="true">💙</div>
+
+      <!-- Texto escrito con efecto máquina de escribir -->
+      <!-- 📝 CAMBIAR el mensaje EXACTO dentro de la constante JS más abajo -->
+      <p id="letterText" aria-live="polite"></p>
+
+      <div class="letter-divider" aria-hidden="true"></div>
+
+      <!-- "Te amo" con rebote elegante -->
+      <p id="teAmo" aria-label="Te amo">Te amo</p>
+
+      <!-- Pie de carta -->
+      <!-- 📝 CAMBIAR el nombre del remitente aquí -->
+      <p class="letter-footer" id="letterFooter">— Yandell 💙</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       JAVASCRIPT PRINCIPAL
+       ============================================================ -->
+  <script>
+    'use strict';
+
+    /* ============================================================
+       CONFIGURACIÓN PERSONALIZABLE
+       📝 MODIFICAR estas constantes para personalizar la experiencia
+       ============================================================ */
+    const CONFIG = {
+      // 📝 Mensaje exacto que se escribirá con efecto máquina de escribir
+      letterMessage: 'Un detallito de tu gran novio Yandell',
+      // 📝 Velocidad de escritura en ms por carácter (menor = más rápido)
+      typeSpeed: 55,
+      // 📝 Archivo de música (opcional). Si no existe, continúa sin error.
+      musicFile: './musica.mp3',
+      // 📝 Volumen de la música ambiental (0.0 – 1.0)
+      musicVolume: 0.30,
+      // 📝 Volumen durante el video (se baja para no mezclar)
+      musicVolumeVideo: 0.06,
+    };
+
+    /* ============================================================
+       ESTADO GLOBAL
+       ============================================================ */
+    let audioCtx = null;
+    let bgMusic  = null;
+    let bgMusicReady = false;
+
+    /* ============================================================
+       CANVAS DE ESTRELLAS DE FONDO
+       ============================================================ */
+    (function initStarCanvas() {
+      const canvas = document.getElementById('particleCanvas');
+      const ctx    = canvas.getContext('2d');
+      let W, H, stars = [];
+
+      function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+        stars = [];
+        const count = Math.min(Math.floor(W * H / 4500), 180);
+        for (let i = 0; i < count; i++) {
+          stars.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            r: Math.random() * 1.4 + 0.3,
+            a: Math.random(),
+            da: (Math.random() * 0.005 + 0.002) * (Math.random() < 0.5 ? 1 : -1),
+          });
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        stars.forEach(s => {
+          s.a += s.da;
+          if (s.a > 1 || s.a < 0) s.da *= -1;
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, s.a);
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = '#c8d8f0';
+          ctx.fill();
+          ctx.restore();
+        });
+        requestAnimationFrame(draw);
+      }
+
+      resize();
+      draw();
+      window.addEventListener('resize', resize);
+    })();
+
+    /* ============================================================
+       ESTRELLAS EN LA PORTADA (CSS)
+       ============================================================ */
+    (function buildCoverStars() {
+      const container = document.getElementById('coverStars');
+      for (let i = 0; i < 40; i++) {
+        const s = document.createElement('span');
+        s.className = 'cover-star';
+        s.style.cssText = `
+          left: ${Math.random() * 100}%;
+          top:  ${Math.random() * 100}%;
+          --dur:   ${(Math.random() * 2 + 1.5).toFixed(1)}s;
+          --delay: ${(Math.random() * 3).toFixed(1)}s;
+          width:   ${Math.random() < 0.2 ? 3 : 2}px;
+          height:  ${Math.random() < 0.2 ? 3 : 2}px;
+          opacity: ${Math.random().toFixed(2)};
+        `;
+        container.appendChild(s);
+      }
+    })();
+
+    /* ============================================================
+       AUDIO
+       ============================================================ */
+    function initAudio() {
+      if (bgMusicReady) return;
+      bgMusicReady = true;
+
+      // Intentar cargar musica.mp3 — si falla, se ignora silenciosamente
+      bgMusic = new Audio(CONFIG.musicFile);
+      bgMusic.loop   = true;
+      bgMusic.volume = CONFIG.musicVolume;
+
+      bgMusic.addEventListener('error', () => {
+        // 📝 musica.mp3 no encontrada: continúa sin música
+        bgMusic = null;
+      });
+
+      // Solo reproducir después de interacción del usuario
+      bgMusic.play().catch(() => {
+        // Navegador bloqueó autoplay — OK, el usuario deberá interactuar
+        bgMusic = null;
+      });
+    }
+
+    function pauseMusic() {
+      if (bgMusic && !bgMusic.paused) {
+        bgMusic.volume = CONFIG.musicVolumeVideo;
+      }
+    }
+
+    function resumeMusic() {
+      if (bgMusic) {
+        bgMusic.volume = CONFIG.musicVolume;
+        if (bgMusic.paused) bgMusic.play().catch(() => {});
+      }
+    }
+
+    /* ============================================================
+       VIBRACIÓN (con tolerancia a fallos — iPhone no soporta)
+       ============================================================ */
+    function vibrate(pattern) {
+      try {
+        if ('vibrate' in navigator) {
+          navigator.vibrate(pattern);
+        }
+      } catch (_) {
+        // Silencio — iPhone y algunos navegadores no soportan vibrate
+      }
+    }
+
+    /* ============================================================
+       PARTÍCULAS: CORAZONES Y DESTELLOS
+       ============================================================ */
+
+    // Emojis disponibles para partículas
+    const HEARTS   = ['❤️', '💙', '💜', '🩵'];
+    const KISSES   = ['💋'];
+    const SPARKS   = ['✨', '⭐', '💫'];
+    const ALL_PARTICLES = [...HEARTS, ...KISSES, ...SPARKS];
+
+    /**
+     * Crea una partícula flotante que se elimina del DOM al terminar.
+     * @param {string}  emoji     — Emoji a mostrar
+     * @param {number}  x         — Posición X de origen (px desde la izquierda)
+     * @param {number}  y         — Posición Y de origen (px desde arriba)
+     * @param {object}  [opts]    — Opciones adicionales
+     */
+    function spawnParticle(emoji, x, y, opts = {}) {
+      const el = document.createElement('span');
+      el.textContent = emoji;
+      el.setAttribute('aria-hidden', 'true');
+
+      const size     = opts.size     || (Math.random() * 14 + 12);
+      const travel   = opts.travel   || -(Math.random() * 120 + 60);
+      const duration = opts.duration || (Math.random() * 1.5 + 1.5);
+      const delay    = opts.delay    || 0;
+      const rot      = (Math.random() * 60 - 30).toFixed(0);
+      const rot2     = (Math.random() * 80 - 40).toFixed(0);
+      const sf       = (Math.random() * 0.5 + 0.7).toFixed(2);
+
+      el.style.cssText = `
+        position: fixed;
+        left: ${x}px;
+        top:  ${y}px;
+        font-size: ${size}px;
+        pointer-events: none;
+        z-index: 100;
+        user-select: none;
+        animation: heartFloat ${duration}s ${delay}s ease-out forwards;
+        --travel: ${travel}px;
+        --rot:    ${rot}deg;
+        --rot2:   ${rot2}deg;
+        --sf:     ${sf};
+      `;
+
+      document.body.appendChild(el);
+
+      // Eliminar del DOM después de la animación — evitar acumulación de nodos
+      const totalMs = (duration + delay) * 1000 + 100;
+      setTimeout(() => { el.remove(); }, totalMs);
+    }
+
+    /**
+     * Lanzar una lluvia de partículas desde un elemento.
+     */
+    function burstFrom(element, count, emojis) {
+      if (!element) return;
+      const rect = element.getBoundingClientRect();
+      for (let i = 0; i < count; i++) {
+        const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+        const x = rect.left + Math.random() * rect.width;
+        const y = rect.top  + Math.random() * rect.height * 0.5;
+        spawnParticle(emoji, x, y, {
+          delay: Math.random() * 1.2,
+          size:  Math.random() * 18 + 10,
+        });
+      }
+    }
+
+    /**
+     * Explosión de corazones desde el texto "Te amo".
+     */
+    function heartExplosion() {
+      const teAmo = document.getElementById('teAmo');
+      if (!teAmo) return;
+
+      const rect = teAmo.getBoundingClientRect();
+      const cx   = rect.left + rect.width  / 2;
+      const cy   = rect.top  + rect.height / 2;
+
+      // Primera ola: desde el centro
+      for (let i = 0; i < 28; i++) {
+        const angle    = (Math.PI * 2 / 28) * i;
+        const distance = Math.random() * 40 + 10;
+        const ox = cx + Math.cos(angle) * distance;
+        const oy = cy + Math.sin(angle) * distance;
+        const emoji = ALL_PARTICLES[Math.floor(Math.random() * ALL_PARTICLES.length)];
+        spawnParticle(emoji, ox, oy, {
+          delay:    Math.random() * 0.8,
+          size:     Math.random() * 20 + 10,
+          travel:   -(Math.random() * 180 + 80),
+          duration: Math.random() * 2 + 1.5,
+        });
+      }
+
+      // Segunda ola: más arriba, lenta
+      setTimeout(() => {
+        for (let i = 0; i < 18; i++) {
+          const x = rect.left + Math.random() * rect.width;
+          const y = rect.top  - Math.random() * 50;
+          const emoji = HEARTS[Math.floor(Math.random() * HEARTS.length)];
+          spawnParticle(emoji, x, y, {
+            delay:    Math.random() * 1.5,
+            size:     Math.random() * 14 + 8,
+            travel:   -(Math.random() * 250 + 100),
+            duration: Math.random() * 2.5 + 2,
+          });
+        }
+      }, 400);
+    }
+
+    /**
+     * Besos alrededor de la carta mientras se escribe.
+     */
+    function periodicKisses() {
+      const card = document.getElementById('letterCard');
+      if (!card) return;
+      let count = 0;
+      const interval = setInterval(() => {
+        if (count >= 8) { clearInterval(interval); return; }
+        burstFrom(card, 2, KISSES.concat(HEARTS));
+        count++;
+      }, 600);
+    }
+
+    /* ============================================================
+       TRANSICIÓN DE LLUVIA DE CORAZONES (entre video y carta)
+       ============================================================ */
+    function rainHearts(container, count, duration) {
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('span');
+        el.textContent = ALL_PARTICLES[Math.floor(Math.random() * ALL_PARTICLES.length)];
+        el.setAttribute('aria-hidden', 'true');
+        const size   = Math.random() * 22 + 14;
+        const xPos   = Math.random() * window.innerWidth;
+        const delay  = Math.random() * duration * 0.7;
+        const dur    = Math.random() * 1.5 + 1.8;
+        const rot    = (Math.random() * 60 - 30).toFixed(0);
+        const rot2   = (Math.random() * 80 - 40).toFixed(0);
+
+        el.style.cssText = `
+          position: fixed;
+          left: ${xPos}px;
+          top: 0;
+          font-size: ${size}px;
+          pointer-events: none;
+          z-index: 25;
+          user-select: none;
+          animation: transHeartRain ${dur}s ${delay}s ease-in forwards;
+          --rot: ${rot}deg;
+          --rot2: ${rot2}deg;
+        `;
+        container.appendChild(el);
+        const totalMs = (dur + delay) * 1000 + 100;
+        setTimeout(() => { el.remove(); }, totalMs);
+      }
+    }
+
+    /* ============================================================
+       MÁQUINA DE ESCRIBIR
+       ============================================================ */
+    function typeWriter(targetEl, text, speed, onChar, onDone) {
+      let i = 0;
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      cursor.setAttribute('aria-hidden', 'true');
+
+      function step() {
+        if (i < text.length) {
+          targetEl.textContent = text.slice(0, i + 1);
+          targetEl.appendChild(cursor);
+          if (onChar) onChar(i);
+          i++;
+          setTimeout(step, speed + Math.random() * 30 - 15);
+        } else {
+          cursor.remove();
+          if (onDone) onDone();
+        }
+      }
+      targetEl.textContent = '';
+      targetEl.appendChild(cursor);
+      setTimeout(step, 300);
+    }
+
+    /* ============================================================
+       CORAZONES AMBIENTALES SOBRE EL MARCO DEL VIDEO
+       ============================================================ */
+    let videoHeartInterval = null;
+
+    function startVideoHearts() {
+      const frame = document.getElementById('videoFrame');
+      if (!frame || videoHeartInterval) return;
+      videoHeartInterval = setInterval(() => {
+        if (Math.random() < 0.5) {
+          burstFrom(frame, 1, ['💙', '✨', '⭐']);
+        }
+      }, 2200);
+    }
+
+    function stopVideoHearts() {
+      if (videoHeartInterval) {
+        clearInterval(videoHeartInterval);
+        videoHeartInterval = null;
+      }
+    }
+
+    /* ============================================================
+       FLUJO PRINCIPAL
+       ============================================================ */
+    const sceneCover      = document.getElementById('sceneCover');
+    const sceneVideo      = document.getElementById('sceneVideo');
+    const sceneTransition = document.getElementById('sceneTransition');
+    const sceneLetter     = document.getElementById('sceneLetter');
+    const btnDiscover     = document.getElementById('btnDiscover');
+    const videoEl         = document.getElementById('videoXV');
+    const letterCard      = document.getElementById('letterCard');
+    const letterText      = document.getElementById('letterText');
+    const teAmoEl         = document.getElementById('teAmo');
+    const letterFooter    = document.getElementById('letterFooter');
+
+    /* ---------- PASO 1: Botón "Descubrir" ---------- */
+    btnDiscover.addEventListener('click', () => {
+      // Activar audio (requiere interacción del usuario)
+      initAudio();
+
+      // Vibración suave al comenzar
+      vibrate(30);
+
+      // Ocultar portada
+      sceneCover.classList.add('fade-out');
+
+      setTimeout(() => {
+        sceneCover.style.display = 'none';
+
+        // Mostrar escena de video
+        sceneVideo.setAttribute('aria-hidden', 'false');
+        sceneVideo.classList.add('visible');
+
+        // Animar marco
+        const frame = document.querySelector('.video-frame');
+        if (frame) {
+          requestAnimationFrame(() => {
+            frame.style.animation = 'frameEntrance 1.2s cubic-bezier(0.22,1,0.36,1) forwards';
+          });
+        }
+
+        // Bajar volumen de música mientras se ve el video
+        pauseMusic();
+
+        // Iniciar corazones sutiles alrededor del marco
+        setTimeout(startVideoHearts, 2000);
+
+        // Manejar error de carga del video
+        videoEl.addEventListener('error', () => {
+          console.warn('[XV] No se pudo cargar video.mp4. Continuando a la carta…');
+          showTransitionToLetter();
+        });
+
+      }, 900);
+    });
+
+    /* ---------- PASO 2: Video termina → Transición ---------- */
+    videoEl.addEventListener('ended', () => {
+      showTransitionToLetter();
+    });
+
+    function showTransitionToLetter() {
+      stopVideoHearts();
+
+      // Desvanece la escena del video
+      sceneVideo.style.transition = 'opacity 1s ease';
+      sceneVideo.style.opacity = '0';
+
+      setTimeout(() => {
+        sceneVideo.style.display = 'none';
+        sceneVideo.setAttribute('aria-hidden', 'true');
+
+        // Mostrar transición
+        sceneTransition.setAttribute('aria-hidden', 'false');
+        sceneTransition.classList.add('active');
+
+        // Lluvia de corazones durante la transición
+        rainHearts(sceneTransition, 50, 2.5);
+
+        // Vibración al aparecer la transición
+        setTimeout(() => vibrate([40, 30, 60]), 300);
+
+        // Después de la transición → mostrar carta
+        setTimeout(() => {
+          sceneTransition.style.opacity = '0';
+          setTimeout(() => {
+            sceneTransition.classList.remove('active');
+            sceneTransition.setAttribute('aria-hidden', 'true');
+            showLetter();
+          }, 600);
+        }, 2800);
+
+      }, 950);
+    }
+
+    /* ---------- PASO 3: Mostrar carta ---------- */
+    function showLetter() {
+      resumeMusic();
+
+      sceneLetter.setAttribute('aria-hidden', 'false');
+      sceneLetter.classList.add('visible');
+
+      // Animar tarjeta
+      setTimeout(() => {
+        letterCard.classList.add('appear');
+
+        // Vibración al comenzar a escribir
+        setTimeout(() => vibrate(20), 800);
+
+        // Iniciar máquina de escribir
+        setTimeout(() => {
+          // Corazones/besos durante la escritura
+          periodicKisses();
+
+          typeWriter(
+            letterText,
+            CONFIG.letterMessage,
+            CONFIG.typeSpeed,
+            (charIndex) => {
+              // Vibración discreta a mitad del mensaje
+              if (charIndex === Math.floor(CONFIG.letterMessage.length / 2)) {
+                vibrate(15);
+              }
+            },
+            () => {
+              // Escritura terminada
+              vibrate([30, 20, 50]);
+
+              // Mostrar "Te amo"
+              setTimeout(() => {
+                teAmoEl.classList.add('bounce-in');
+                teAmoEl.style.opacity = '1';
+
+                // Vibración especial para "Te amo"
+                setTimeout(() => vibrate([80, 50, 120]), 300);
+
+                // Explosión de corazones
+                setTimeout(() => {
+                  heartExplosion();
+                  letterFooter.classList.add('appear');
+                }, 500);
+
+                // Corazones continuos moderados (se autolimpian)
+                let burst = 0;
+                const burstInterval = setInterval(() => {
+                  if (burst >= 12) { clearInterval(burstInterval); return; }
+                  burstFrom(teAmoEl, 2, ALL_PARTICLES);
+                  burst++;
+                }, 800);
+
+              }, 600);
+            }
+          );
+        }, 1000);
+
+      }, 300);
+    }
+
+    /* ============================================================
+       ACCESIBILIDAD: Respetar prefers-reduced-motion
+       El CSS ya lo maneja, pero también detenemos partículas.
+       ============================================================ */
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) {
+      // Si el usuario prefiere movimiento reducido, desactivamos la lluvia de partículas
+      window.spawnParticle   = () => {};
+      window.burstFrom       = () => {};
+      window.rainHearts      = () => {};
+      window.heartExplosion  = () => {};
+    }
+
+  </script>
+
+</body>
+</html>
