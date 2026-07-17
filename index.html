@@ -1014,7 +1014,7 @@
 
       <div id="pwError" aria-live="polite" role="alert"></div>
 
-      <button id="btnUnlock" aria-label="Desbloquear carta">Desbloquear carta</button>
+      <button id="btnUnlock" type="button" aria-label="Desbloquear carta">Desbloquear carta</button>
 
       <button class="pw-hint-toggle" id="btnHintToggle" aria-expanded="false"
               aria-controls="pwHintText" type="button">¿Olvidaste la contraseña?</button>
@@ -1127,6 +1127,7 @@
     let currentTyper       = null; // referencia al typer en curso
 
     /* ── ID auto-incremental para gradientes SVG ── */
+    let unlockInProgress = false;
     let _emId = 0;
 
     /* ─────────────────────────────────────────────
@@ -1798,6 +1799,7 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
        PASO 3: CARTA ORIGINAL
     ───────────────────────────────────────────── */
     function showLetter() {
+      expState.transitionLock = false;
       resumeMusic();
       sceneLetter.setAttribute('aria-hidden', 'false');
       sceneLetter.classList.add('visible');
@@ -1849,7 +1851,12 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
     });
 
     // Enter en el campo de contraseña
-    pwInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') attemptUnlock(); });
+    pwInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        attemptUnlock();
+      }
+    });
     btnUnlock.addEventListener('click', attemptUnlock);
 
     btnHintToggle.addEventListener('click', () => {
@@ -1861,9 +1868,28 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
     const _sk = ['amo', 'a', 'yandell'].join(' ');
 
     function attemptUnlock() {
-      if (expState.transitionLock) return;
-      const val = pwInput.value.trim().toLowerCase().replace(/\s+/g, ' ');
-      if (val === _sk) {
+      if (unlockInProgress || expState.unlocked) return;
+
+      const val = pwInput.value
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, ' ');
+
+      const expectedPassword = 'amo a yandell';
+
+      console.log('[XV] Intento de desbloqueo', {
+        enteredValue: val,
+        expectedValue: expectedPassword,
+        transitionLock: expState.transitionLock,
+        unlocked: expState.unlocked,
+        unlockInProgress
+      });
+
+      if (val === expectedPassword) {
+        console.log('[XV] Contraseña correcta');
+        unlockInProgress = true;
         handleCorrectPassword();
       } else {
         handleWrongPassword();
@@ -1882,18 +1908,28 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
     }
 
     function handleCorrectPassword() {
+      if (expState.unlocked) return;
+
       expState.unlocked = true;
       pwError.textContent = '';
+      btnUnlock.disabled = true;
+      pwInput.disabled = true;
+
       vibrate([30, 20, 80]);
 
-      // Animación de desbloqueo en el candado
       const lock = document.querySelector('.pw-lock');
-      if (lock) { lock.style.transition = 'transform 0.4s'; lock.style.transform = 'scale(1.3)'; }
+      if (lock) {
+        lock.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+        lock.style.transform = 'scale(1.25)';
+        lock.style.opacity = '0.4';
+      }
 
       setTimeout(() => {
         scenePassword.classList.remove('visible');
         scenePassword.setAttribute('aria-hidden', 'true');
-        setTimeout(showEnvelopeScene, 500);
+        setTimeout(() => {
+          showEnvelopeScene();
+        }, 400);
       }, 600);
     }
 
@@ -1901,6 +1937,7 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
        PASO 5: ESCENA SOBRE
     ───────────────────────────────────────────── */
     function showEnvelopeScene() {
+      console.log('[XV] Mostrando escena del sobre');
       sceneEnvelope.setAttribute('aria-hidden', 'false');
       sceneEnvelope.classList.add('visible');
 
