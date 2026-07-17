@@ -484,7 +484,6 @@
       clip-path: polygon(0 0, 50% 60%, 100% 0);
       transform-origin: top center; transform-style: preserve-3d;
       z-index: 2;
-      /* Borde fino de la solapa */
       border-bottom: 1px solid rgba(200,216,240,0.15);
     }
     .env-flap.opening { animation: flapOpen 0.9s cubic-bezier(0.4,0,0.2,1) 0.3s forwards; }
@@ -512,14 +511,13 @@
       transform: translateY(30%);
       transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
       z-index: 1;
-      /* Línea horizontal decorativa */
       border-top: 2px solid rgba(79,159,255,0.2);
     }
     .env-paper.rising { transform: translateY(-25%); }
     .env-paper.lowering { transform: translateY(30%); transition: transform 0.7s ease-in; }
 
     /* ═══════════════════════════════════════════════════
-       ESCENA CARTA PRIVADA (dos páginas)
+       ESCENA CARTA PRIVADA – DOS PÁGINAS
     ═══════════════════════════════════════════════════ */
     #sceneLetter2 {
       position: fixed; inset: 0; z-index: 45;
@@ -550,7 +548,7 @@
       background: none; border: none; font-family: 'Outfit', sans-serif;
       transition: color 0.2s; letter-spacing: 0.05em;
     }
-    .ltr2-skip-btn:hover { color: rgba(200,216,240,0.75); }
+    .ltr2-skip-btn:hover { color: rgba(200, 216, 240, 0.75); }
     .ltr2-skip-btn:disabled { opacity: 0.3; cursor: default; }
 
     /* Paper (hoja de carta) */
@@ -564,7 +562,6 @@
       padding: 1.6rem 1.5rem 1rem;
       box-shadow: 0 20px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.12);
       scroll-behavior: smooth;
-      /* Scrollbar discreta */
       scrollbar-width: thin; scrollbar-color: rgba(79,159,255,0.3) transparent;
     }
     .ltr2-paper::-webkit-scrollbar { width: 4px; }
@@ -583,15 +580,6 @@
       display: inline-block; width: 1.5px; height: 1em;
       background: rgba(79,159,255,0.8); vertical-align: middle;
       margin-left: 1px; animation: cursorBlink 0.65s step-end infinite;
-    }
-    /* Componentes emocionales inline */
-    .inline-em {
-      display: inline-block; height: 1.25em; width: auto;
-      vertical-align: -0.25em; margin: 0 0.18em;
-    }
-    .inline-em-group {
-      display: inline-flex; align-items: center; gap: 0.08em;
-      vertical-align: -0.25em; margin: 0 0.18em;
     }
 
     /* Botones de navegación */
@@ -755,6 +743,35 @@
       from { opacity:0; transform: translateX(-30px); }
       to   { opacity:1; transform: translateX(0); }
     }
+
+    /* Estilos de símbolos vectoriales inline */
+    .inline-emotion {
+      display: inline-flex;
+      width: 1.15em;
+      height: 1.15em;
+      margin: 0 0.08em;
+      vertical-align: -0.18em;
+      flex-shrink: 0;
+    }
+
+    /* Firmas elegantes de Yandell */
+    .signature-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(200, 216, 240, 0.45);
+      margin-top: 1.4rem;
+      font-family: 'Outfit', sans-serif;
+      pointer-events: none;
+      animation: signatureGlow 4s ease-in-out infinite alternate;
+    }
+    @keyframes signatureGlow {
+      0%, 100% { color: rgba(200, 216, 240, 0.4); text-shadow: 0 0 4px rgba(79, 159, 255, 0); }
+      50% { color: rgba(200, 216, 240, 0.7); text-shadow: 0 0 8px rgba(79, 159, 255, 0.4); }
+    }
   </style>
 </head>
 
@@ -804,6 +821,19 @@
       </svg>
       Descubrir mi sorpresa
     </button>
+
+    <!-- Firma de bienvenida -->
+    <div class="signature-badge" style="margin-top: 1.8rem;">
+      Creado con todo mi amor por Yandell
+      <svg width="12" height="11" viewBox="0 0 22 20" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="sigHGB" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#4f9fff"/><stop offset="100%" stop-color="#c8d8f0"/>
+          </linearGradient>
+        </defs>
+        <path d="M11 18C11 18 1 11.5 1 5.5C1 2.5 3.5 1 6 1C8 1 10 2.5 11 4C12 2.5 14 1 16 1C18.5 1 21 2.5 21 5.5C21 11.5 11 18 11 18Z" fill="url(#sigHGB)"/>
+      </svg>
+    </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════
@@ -957,7 +987,7 @@
             <stop offset="100%" stop-color="#c8d8f0"/>
           </linearGradient></defs>
           <path d="M15 25C15 25 1 16.5 1 7.5C1 3.5 4 1 7.5 1C10 1 13 2.5 15 5C17 2.5 20 1 22.5 1C26 1 29 3.5 29 7.5C29 16.5 15 25 15 25Z"
-                fill="url(#liHG)" filter="url(#glow)"/>
+                fill="url(#liHG)"/>
         </svg>
       </div>
 
@@ -1090,6 +1120,19 @@
       </svg>
       Vivir este momento otra vez
     </button>
+
+    <!-- Firma final -->
+    <div class="signature-badge" style="margin-top: 2rem;">
+      Hecho con todo mi amor por Yandell
+      <svg width="12" height="11" viewBox="0 0 22 20" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="sigHGF" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#4f9fff"/><stop offset="100%" stop-color="#c8d8f0"/>
+          </linearGradient>
+        </defs>
+        <path d="M11 18C11 18 1 11.5 1 5.5C1 2.5 3.5 1 6 1C8 1 10 2.5 11 4C12 2.5 14 1 16 1C18.5 1 21 2.5 21 5.5C21 11.5 11 18 11 18Z" fill="url(#sigHGF)"/>
+      </svg>
+    </div>
   </div>
 
   <!-- ═══════════════════════════════════════════════════
@@ -1449,24 +1492,24 @@
     function createInlineEmotion(type) {
       const id = 'em' + (++_emId);
       switch (type) {
-        case 'blueHearts':
-          return `<span class="inline-em-group" aria-label="dos corazones azules">
-            <svg class="inline-em" viewBox="0 0 22 20" fill="none">
-              <defs><linearGradient id="${id}a" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#1a5fb0"/><stop offset="100%" stop-color="#4f9fff"/>
-              </linearGradient></defs>
-              <path d="M11 18C11 18 1 11.5 1 5.5C1 2.5 3.5 1 6 1C8 1 10 2.5 11 4C12 2.5 14 1 16 1C18.5 1 21 2.5 21 5.5C21 11.5 11 18 11 18Z" fill="url(#${id}a)"/>
-            </svg>
-            <svg class="inline-em" viewBox="0 0 22 20" fill="none" style="margin-left:-0.3em;opacity:0.75">
-              <defs><linearGradient id="${id}b" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#79b8f7"/><stop offset="100%" stop-color="#c8d8f0"/>
-              </linearGradient></defs>
-              <path d="M11 18C11 18 1 11.5 1 5.5C1 2.5 3.5 1 6 1C8 1 10 2.5 11 4C12 2.5 14 1 16 1C18.5 1 21 2.5 21 5.5C21 11.5 11 18 11 18Z" fill="url(#${id}b)"/>
-            </svg>
-          </span>`;
+        case 'blueHeart':
+          return `<svg class="inline-emotion" viewBox="0 0 22 20" fill="none" aria-label="corazón azul">
+            <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#1a5fb0"/><stop offset="100%" stop-color="#0f3480"/>
+            </linearGradient></defs>
+            <path d="M11 18C11 18 1 11.5 1 5.5C1 2.5 3.5 1 6 1C8 1 10 2.5 11 4C12 2.5 14 1 16 1C18.5 1 21 2.5 21 5.5C21 11.5 11 18 11 18Z" fill="url(#${id})"/>
+          </svg>`;
+
+        case 'lightBlueHeart':
+          return `<svg class="inline-emotion" viewBox="0 0 22 20" fill="none" aria-label="corazón azul claro">
+            <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#79b8f7"/><stop offset="100%" stop-color="#4f9fff"/>
+            </linearGradient></defs>
+            <path d="M11 18C11 18 1 11.5 1 5.5C1 2.5 3.5 1 6 1C8 1 10 2.5 11 4C12 2.5 14 1 16 1C18.5 1 21 2.5 21 5.5C21 11.5 11 18 11 18Z" fill="url(#${id})"/>
+          </svg>`;
 
         case 'redHeart':
-          return `<svg class="inline-em" viewBox="0 0 22 20" fill="none" aria-label="corazón">
+          return `<svg class="inline-emotion" viewBox="0 0 22 20" fill="none" aria-label="corazón rojo">
             <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stop-color="#ff7ab0"/><stop offset="100%" stop-color="#e83a6f"/>
             </linearGradient></defs>
@@ -1474,73 +1517,82 @@
             <path d="M6 5C6 4 7 3 8 3" stroke="rgba(255,255,255,0.4)" stroke-width="1" stroke-linecap="round"/>
           </svg>`;
 
-        case 'sadEmotion':
-          return `<svg class="inline-em" viewBox="0 0 18 22" fill="none" aria-label="emoción">
+        case 'sadFace':
+          return `<svg class="inline-emotion" viewBox="0 0 24 24" fill="none" aria-label="cara triste">
             <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#79b8f7" stop-opacity="0.9"/>
-              <stop offset="100%" stop-color="#4f9fff" stop-opacity="0.4"/>
+              <stop offset="0%" stop-color="#9bbde8"/><stop offset="100%" stop-color="#4a7bc7"/>
             </linearGradient></defs>
-            <path d="M9 0 Q14 7 14 13 A5 5 0 0 1 4 13 Q4 7 9 0Z" fill="url(#${id})"/>
-            <ellipse cx="9" cy="13" rx="2" ry="1.5" fill="rgba(79,159,255,0.3)"/>
+            <circle cx="12" cy="12" r="10" fill="url(#${id})" opacity="0.95"/>
+            <path d="M7.5 11 L9.5 10" stroke="#060d28" stroke-width="1.3" stroke-linecap="round"/>
+            <path d="M16.5 11 L14.5 10" stroke="#060d28" stroke-width="1.3" stroke-linecap="round"/>
+            <path d="M7 9 Q8.5 8 9.5 9.2" stroke="#060d28" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+            <path d="M17 9 Q15.5 8 14.5 9.2" stroke="#060d28" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+            <path d="M9 16.5 Q12 14.2 15 16.5" stroke="#060d28" stroke-width="1.4" fill="none" stroke-linecap="round"/>
           </svg>`;
 
-        case 'admiration':
-          return `<span class="inline-em-group" aria-label="admiración">
-            <svg class="inline-em" viewBox="0 0 22 20" fill="none">
-              <defs><linearGradient id="${id}h" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#ff7ab0"/><stop offset="100%" stop-color="#e83a6f"/>
-              </linearGradient><radialGradient id="${id}g" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="rgba(255,255,255,0.6)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-              </radialGradient></defs>
-              <path d="M11 18C11 18 1 11.5 1 5.5C1 2.5 3.5 1 6 1C8 1 10 2.5 11 4C12 2.5 14 1 16 1C18.5 1 21 2.5 21 5.5C21 11.5 11 18 11 18Z" fill="url(#${id}h)"/>
-              <circle cx="11" cy="9" r="5" fill="url(#${id}g)"/>
-            </svg>
-            <svg class="inline-em" viewBox="0 0 14 14" fill="none" style="width:0.7em">
-              <path d="M7 0 L7.4 6.6 L14 7 L7.4 7.4 L7 14 L6.6 7.4 L0 7 L6.6 6.6 Z" fill="rgba(200,216,240,0.8)"/>
-            </svg>
-          </span>`;
+        case 'heartEyes':
+          return `<svg class="inline-emotion" viewBox="0 0 24 24" fill="none" aria-label="cara enamorada">
+            <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ffe2a0"/><stop offset="100%" stop-color="#fca82a"/>
+            </linearGradient></defs>
+            <circle cx="12" cy="12" r="10" fill="url(#${id})"/>
+            <path d="M6.5 8.5 C6.5 8.5 4.5 6 4.5 4 C4.5 2.7 5.5 2 6.5 2 C7.5 2 8.5 3 8.5 3 C8.5 3 9.5 2 10.5 2 C11.5 2 12.5 2.7 12.5 4 C12.5 6 10.5 8.5 10.5 8.5 Z" fill="#e83a6f" transform="translate(1.5, 4.8) scale(0.55)"/>
+            <path d="M6.5 8.5 C6.5 8.5 4.5 6 4.5 4 C4.5 2.7 5.5 2 6.5 2 C7.5 2 8.5 3 8.5 3 C8.5 3 9.5 2 10.5 2 C11.5 2 12.5 2.7 12.5 4 C12.5 6 10.5 8.5 10.5 8.5 Z" fill="#e83a6f" transform="translate(8.8, 4.8) scale(0.55)"/>
+            <path d="M8 15 Q12 18.2 16 15" stroke="#060d28" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+          </svg>`;
 
-        case 'doubleHeart':
-          return `<span class="inline-em-group" aria-label="dos corazones">
-            <svg class="inline-em" viewBox="0 0 22 20" fill="none">
+        case 'pleadingFace':
+          return `<svg class="inline-emotion" viewBox="0 0 24 24" fill="none" aria-label="cara tierna">
+            <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ffebaa"/><stop offset="100%" stop-color="#ffa62b"/>
+            </linearGradient></defs>
+            <circle cx="12" cy="12" r="10" fill="url(#${id})"/>
+            <circle cx="8" cy="11.2" r="2.6" fill="#060d28"/>
+            <circle cx="7.2" cy="10.4" r="0.9" fill="#ffffff"/>
+            <circle cx="8.6" cy="12" r="0.4" fill="#ffffff"/>
+            <circle cx="16" cy="11.2" r="2.6" fill="#060d28"/>
+            <circle cx="15.2" cy="10.4" r="0.9" fill="#ffffff"/>
+            <circle cx="16.6" cy="12" r="0.4" fill="#ffffff"/>
+            <path d="M5.8 8.2 Q7.2 7 8.5 8.4" stroke="#060d28" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+            <path d="M18.2 8.2 Q16.8 7 15.5 8.4" stroke="#060d28" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+            <path d="M9.8 16.2 Q12 14.8 14.2 16.2" stroke="#060d28" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+          </svg>`;
+
+        case 'twoHearts':
+          return `<span class="inline-emotion" style="width:1.75em;align-items:center;" aria-label="dos corazones rosados">
+            <svg viewBox="0 0 22 20" fill="none" style="width:1.1em;height:1.1em;flex-shrink:0;">
               <defs><linearGradient id="${id}a" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#ff7ab0"/><stop offset="100%" stop-color="#e83a6f"/>
+                <stop offset="0%" stop-color="#ffaad4"/><stop offset="100%" stop-color="#e05090"/>
               </linearGradient></defs>
               <path d="M11 18C11 18 1 11.5 1 5.5C1 2.5 3.5 1 6 1C8 1 10 2.5 11 4C12 2.5 14 1 16 1C18.5 1 21 2.5 21 5.5C21 11.5 11 18 11 18Z" fill="url(#${id}a)"/>
             </svg>
-            <svg class="inline-em" viewBox="0 0 22 20" fill="none" style="margin-left:-0.25em;width:0.85em;opacity:0.7">
+            <svg viewBox="0 0 22 20" fill="none" style="width:0.75em;height:0.75em;margin-left:-0.2em;margin-top:-0.4em;opacity:0.85;flex-shrink:0;">
               <defs><linearGradient id="${id}b" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#4f9fff"/><stop offset="100%" stop-color="#c8d8f0"/>
+                <stop offset="0%" stop-color="#ffd5ea"/><stop offset="100%" stop-color="#ff7ab0"/>
               </linearGradient></defs>
               <path d="M11 18C11 18 1 11.5 1 5.5C1 2.5 3.5 1 6 1C8 1 10 2.5 11 4C12 2.5 14 1 16 1C18.5 1 21 2.5 21 5.5C21 11.5 11 18 11 18Z" fill="url(#${id}b)"/>
             </svg>
           </span>`;
 
-        case 'kiss':
-          return `<svg class="inline-em" viewBox="0 0 40 24" fill="none" aria-label="beso" style="width:1.6em">
-            <defs>
-              <linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#ffaad4"/><stop offset="50%" stop-color="#e05090"/>
-                <stop offset="100%" stop-color="#c03070"/>
-              </linearGradient>
-              <radialGradient id="${id}h" cx="50%" cy="30%" r="50%">
-                <stop offset="0%" stop-color="rgba(255,255,255,0.4)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-              </radialGradient>
-            </defs>
-            <path d="M4 12 Q12 2 20 9 Q28 2 36 12 Q28 10 20 13 Q12 10 4 12Z" fill="url(#${id})" opacity="0.9"/>
-            <path d="M4 12 Q12 22 20 21 Q28 22 36 12 Q28 16 20 17 Q12 16 4 12Z" fill="url(#${id})" opacity="0.85"/>
-            <ellipse cx="16" cy="8" rx="5" ry="2.5" fill="url(#${id}h)" opacity="0.7"/>
+        case 'kissFace':
+          return `<svg class="inline-emotion" viewBox="0 0 24 24" fill="none" aria-label="cara beso">
+            <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ffeba0"/><stop offset="100%" stop-color="#fca020"/>
+            </linearGradient></defs>
+            <circle cx="12" cy="12" r="10" fill="url(#${id})"/>
+            <path d="M6 11 Q7.5 9.5 9 11" stroke="#060d28" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+            <path d="M14 11.5 L17 11.5 M15.5 10 L15.5 13" stroke="#060d28" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M9.5 15.5 Q11 14 12 15.5" stroke="#060d28" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            <path d="M11 18 C11 18 1 11.5 1 5.5 C1 2.5 3.5 1 6 1 C8 1 10 2.5 11 4 C12 2.5 14 1 16 1 C18.5 1 21 2.5 21 5.5 C21 11.5 11 18 11 18 Z" fill="#e83a6f" transform="translate(14.2, 12) scale(0.38)"/>
           </svg>`;
 
         case 'heartHands':
-          return `<svg class="inline-em" viewBox="0 0 32 26" fill="none" aria-label="corazón con manos" style="width:1.4em">
+          return `<svg class="inline-emotion" viewBox="0 0 32 26" fill="none" aria-label="manos corazón" style="width:1.35em;">
             <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stop-color="#c8d8f0"/><stop offset="100%" stop-color="#4f9fff"/>
             </linearGradient></defs>
-            <!-- Manos formando corazón -->
             <path d="M2 20 C2 20 6 10 16 8 C26 10 30 20 30 20" stroke="url(#${id})" stroke-width="1.5" fill="none" stroke-linecap="round"/>
             <path d="M2 20 Q2 26 8 25 Q16 28 24 25 Q30 26 30 20" fill="rgba(79,159,255,0.12)" stroke="url(#${id})" stroke-width="1"/>
-            <!-- Corazón central pequeño -->
             <path d="M16 14 C16 14 11 10.5 11 7.5C11 5.5 12.5 4.5 14 4.5C15 4.5 16 5.5 16 5.5C16 5.5 17 4.5 18 4.5C19.5 4.5 21 5.5 21 7.5C21 10.5 16 14 16 14Z" fill="url(#${id})"/>
           </svg>`;
 
@@ -1554,22 +1606,16 @@
     ───────────────────────────────────────────── */
     const LETTER_PAGES_RAW = [
       // Página 1
-      `Felicesss XV mi vidaaa. Espero que cumplas muchísimos años másss. Te deseo todo lo mejor para ti, obvioo. Que sigas siendo esa niña de bien, con educación y con un gran corazón para repartirme amor a mí y a esas personas que amas. [EMOTION:blueHearts]
+      `Felicesss XV mi vidaaa [EMOTION:blueHeart][EMOTION:lightBlueHeart]. Espero que cumplas muchísimos años másss. Te deseo todo lo mejor para ti, obvioo. Que sigas siendo esa niña de bien, con educación y con un gran corazón para repartirme amor a mí y a esas personas que amas [EMOTION:redHeart].
 
-En verdad no sé qué decirte porque no quiero ser repetitivo, porque yo te mandé un párrafo una vez y tú me dijiste que yo siempre digo lo mismo, [EMOTION:sadEmotion] pero está bien, esto por lo menos está saliendo de mi corazón. [EMOTION:redHeart]
+En verdad no sé qué decirte porque no quiero ser repetitivo, porque yo te mandé un párrafo una vez y tú me dijiste que yo siempre digo lo mismo, pero está bien, esto por lo menos está saliendo de mi corazón [EMOTION:sadFace].
 
-Espero que sepas que te admiro mucho y estoy muy orgulloso de la gran novia y mujer que eres conmigo. También que la hayas pasado biennn en tu cumpleaños y que sepas que yo te amo mucho. [EMOTION:admiration]
+Espero que sepas que te admiro mucho y estoy muy orgulloso de la gran novia y mujer que eres conmigo. También que la hayas pasado biennn en tu cumpleaños y que sepas que yo te amo mucho.
 
-Y me siento muy feliz de que ya estés cumpliendo otro año más junto conmigo, y más unos XV que son mucho más especiales.`,
+Y me siento muy feliz de que ya estés cumpliendo otro año más junto conmigo, y más unos XV que son mucho más especiales [EMOTION:heartEyes][EMOTION:pleadingFace][EMOTION:pleadingFace].`,
 
       // Página 2
-      `Yo te conocí a los 12 teniendo yo 15, y ya hoy en día tú tienes tus 15 y yo mis 17. Con eso espero que sigamos así, y también sintiéndonos cada día más cómodos con nuestra relación y con nuestro futuro juntos. [EMOTION:doubleHeart]
-
-Espero que, así como vas creciendo y cumpliendo años, también vayas madurando y cambiando tu mentalidad un poco más, para que sepas qué es lo que de verdad quieres conmigo y con tu vida.
-
-Porque en verdad hay veces que espero un lado maduro tuyo pero no recibo nada, como lo quisiera recibir; y ok, se entiende porque tú todavía tienes 15, pero ajá.
-
-Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el tiempo se van cambiando y van mejorando. [EMOTION:kiss][EMOTION:heartHands]`
+      `Yo te conocí a los 12 teniendo yo 15, y ya hoy en día tú tienes tus 15 y yo mis 17. Con eso espero que sigamos así, y también sintiéndonos cada día más cómodos con nuestra relación y con nuestro futuro juntos [EMOTION:twoHearts]. Espero que, así como vas creciendo y cumpliendo años, también vayas madurando y cambiando tu mentalidad un poco más, para que sepas qué es lo que de verdad quieres conmigo y con tu vida. Porque en verdad hay veces que espero un lado maduro tuyo pero no recibo nada, como lo quisiera recibir; y ok, se entiende porque tú todavía tienes 15, pero ajá. Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el tiempo se van cambiando y van mejorando [EMOTION:kissFace][EMOTION:heartHands].`
     ];
 
     /* ─────────────────────────────────────────────
@@ -1615,7 +1661,6 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
       }
 
       function start() {
-        // Iniciar con un párrafo vacío + cursor
         containerEl.innerHTML = '';
         let currentPara = document.createElement('p');
         currentPara.className = 'ltr-para';
@@ -1632,7 +1677,6 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
             return;
           }
 
-          // Detectar placeholder de emoción
           if (rawContent.startsWith('[EMOTION:', pos)) {
             const end = rawContent.indexOf(']', pos);
             const type = rawContent.slice(pos + 9, end);
@@ -1646,7 +1690,6 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
             return;
           }
 
-          // Detectar doble salto de línea
           if (rawContent.startsWith('\n\n', pos)) {
             pos += 2;
             cursor.remove();
@@ -1658,7 +1701,6 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
             return;
           }
 
-          // Carácter normal
           const ch = rawContent[pos++];
           cursor.before(document.createTextNode(ch));
           setTimeout(step, charDelay(ch));
@@ -1745,14 +1787,11 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
       expState.transitionLock = true;
       stopVideoHearts();
 
-      // Fase 1: mantener último fotograma ~800ms
       setTimeout(() => {
-        // Fase 2: desvanecer y desenfocar el marco (0.75s)
         videoFrame.style.transition = 'filter 0.75s ease, opacity 0.75s ease';
         videoFrame.style.filter     = 'brightness(0.1) blur(4px)';
         videoFrame.style.opacity    = '0.15';
 
-        // Lanzar 4 destellos repartidos alrededor del marco durante el fundido
         const rect = videoFrame.getBoundingClientRect();
         for (let i = 0; i < 4; i++) {
           setTimeout(() => {
@@ -1764,7 +1803,6 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
           }, i * 130);
         }
 
-        // Fase 3: iniciar transición de escena
         setTimeout(() => {
           videoFrame.style.transition = '';
           videoFrame.style.filter     = '';
@@ -1822,7 +1860,6 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
                 setTimeout(() => {
                   heartExplosion();
                   letterFooter.classList.add('appear');
-                  // Mostrar botón "Abrir mi carta para ti" después del footer
                   setTimeout(() => {
                     btnOpenLetter.classList.add('visible');
                   }, 1200);
@@ -1850,7 +1887,6 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
       setTimeout(() => { pwInput.focus(); }, 320);
     });
 
-    // Enter en el campo de contraseña
     pwInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
@@ -1892,7 +1928,7 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
       vibrate([50, 30, 50]);
       pwError.textContent = 'Esa no es nuestra frase especial. Inténtalo otra vez.';
       pwCard.classList.remove('shake');
-      void pwCard.offsetWidth; // reflow
+      void pwCard.offsetWidth;
       pwCard.classList.add('shake');
       pwInput.value = '';
       setTimeout(() => { pwCard.classList.remove('shake'); }, 500);
@@ -1933,23 +1969,18 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
       sceneEnvelope.setAttribute('aria-hidden', 'false');
       sceneEnvelope.classList.add('visible');
 
-      // El sobre aparece
       envContainer.style.animation = 'envAppear 0.8s cubic-bezier(0.22,1,0.36,1) forwards';
 
-      // Sello se ilumina
       setTimeout(() => { envSeal.classList.add('glowing'); }, 700);
 
-      // La solapa se abre
       setTimeout(() => {
         envFlap.classList.add('opening');
       }, 1400);
 
-      // El papel sube
       setTimeout(() => {
         envPaper.classList.add('rising');
       }, 2200);
 
-      // Transición a la carta privada
       setTimeout(() => {
         sceneEnvelope.classList.remove('visible');
         sceneEnvelope.setAttribute('aria-hidden', 'true');
@@ -1971,10 +2002,9 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
       expState.currentPage = pageNum;
       ltr2PageInd.textContent = `${pageNum} de 2`;
 
-      // Actualizar botones
       ltr2BtnPrev.disabled = (pageNum === 1);
       ltr2BtnNext.textContent = (pageNum === 2) ? 'Guardar este recuerdo' : 'Continuar';
-      // Reconstruir icono en el botón next
+      
       if (pageNum === 2) {
         ltr2BtnNext.innerHTML = `<svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
           <path d="M7 1C7 1 12 4 12 7C12 10 7 13 7 13C7 13 2 10 2 7C2 4 7 1 7 1Z" stroke="currentColor" stroke-width="1.3" fill="none"/>
@@ -1986,7 +2016,6 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
         </svg>`;
       }
 
-      // Bloquear botones durante la escritura
       setNavEnabled(false);
 
       if (instant || expState.completedPages.has(pageNum)) {
@@ -1999,7 +2028,6 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
         return;
       }
 
-      // Efecto de escritura
       expState.typing = true;
       ltr2Content.innerHTML = '';
       ltr2SkipBtn.disabled = false;
@@ -2023,7 +2051,6 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
       ltr2BtnNext.disabled = !enabled;
     }
 
-    // Skip typing
     ltr2SkipBtn.addEventListener('click', () => {
       if (currentTyper && expState.typing) {
         currentTyper.skip();
@@ -2034,7 +2061,6 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
       }
     });
 
-    // Tap en el papel para saltar escritura
     ltr2Paper.addEventListener('click', () => {
       if (expState.typing && currentTyper) {
         currentTyper.skip();
@@ -2045,7 +2071,6 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
       }
     });
 
-    // Navegación
     ltr2BtnPrev.addEventListener('click', () => {
       if (expState.typing || expState.currentPage <= 1) return;
       animatePageTransition('backward', () => renderPage(expState.currentPage - 1, true));
@@ -2056,7 +2081,6 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
       if (expState.currentPage === 1) {
         animatePageTransition('forward', () => renderPage(2, false));
       } else {
-        // Guardar este recuerdo → cerrar carta
         startCloseSequence();
       }
     });
@@ -2080,38 +2104,31 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
       setNavEnabled(false);
       ltr2SkipBtn.disabled = true;
 
-      // Ocultar carta
       sceneLetter2.classList.remove('visible');
       sceneLetter2.setAttribute('aria-hidden', 'true');
 
-      // Mostrar sobre para la animación de cierre
       setTimeout(() => {
         sceneEnvelope.setAttribute('aria-hidden', 'false');
         sceneEnvelope.classList.add('visible');
 
-        // El papel baja de nuevo
         envPaper.classList.remove('rising');
         envPaper.classList.add('lowering');
 
-        // La solapa se cierra
         setTimeout(() => {
           envFlap.classList.remove('opening');
           envFlap.classList.add('closing');
         }, 700);
 
-        // El sello se ilumina de nuevo
         setTimeout(() => {
           envSeal.classList.remove('glowing');
           void envSeal.offsetWidth;
           envSeal.classList.add('glowing');
         }, 1200);
 
-        // El sobre se va hacia la derecha y desaparece
         setTimeout(() => {
           envContainer.style.animation = 'envExit 0.9s cubic-bezier(0.4,0,0.8,0.6) forwards';
         }, 1700);
 
-        // Mostrar escena final
         setTimeout(() => {
           sceneEnvelope.classList.remove('visible');
           sceneEnvelope.setAttribute('aria-hidden', 'true');
@@ -2126,7 +2143,6 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
     }
 
     btnRestart.addEventListener('click', () => {
-      // Flash azul antes de recargar
       const flash = document.createElement('div');
       flash.style.cssText = 'position:fixed;inset:0;background:rgba(26,58,143,0.7);z-index:999;opacity:0;transition:opacity 0.3s ease;pointer-events:none;';
       document.body.appendChild(flash);
