@@ -1877,18 +1877,10 @@ Pero no te preocupes, que aun así te amo muchooo, y esas son cosas que con el t
         .toLowerCase()
         .replace(/\s+/g, ' ');
 
-      const expectedPassword = 'amo a yandell';
+      console.log('[XV] Procesando contraseña...');
 
-      console.log('[XV] Intento de desbloqueo', {
-        enteredValue: val,
-        expectedValue: expectedPassword,
-        transitionLock: expState.transitionLock,
-        unlocked: expState.unlocked,
-        unlockInProgress
-      });
-
-      if (val === expectedPassword) {
-        console.log('[XV] Contraseña correcta');
+      if (val === _sk) {
+        console.log('[XV] Acceso correcto');
         unlockInProgress = true;
         handleCorrectPassword();
       } else {
